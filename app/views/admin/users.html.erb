@@ -1,0 +1,47 @@
+<div class="mb-8">
+  <h1 class="text-3xl font-bold text-red-800">Users Management</h1>
+  <p class="text-gray-600">Manage all users and their roles</p>
+</div>
+
+<div class="bg-white shadow overflow-hidden sm:rounded-lg">
+  <div class="overflow-x-auto">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created At</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <% @users.each do |user| %>
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><%= user.email %></td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= user.roles.first.name.titleize %></td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= user.created_at.strftime('%b %d, %Y') %></td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              <% if user != current_user %>
+                <%= form_with url: update_user_role_path, method: :patch, local: true do |f| %>
+                  <%= f.hidden_field :user_id, value: user.id %>
+                  <div class="flex items-center">
+                    <select name="role" onchange="this.form.submit()" class="mr-2 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md">
+                      <option value="seller" <%= 'selected' if user.seller? %>>Seller</option>
+                      <option value="admin" <%= 'selected' if user.admin? %>>Admin</option>
+                    </select>
+                  </div>
+                <% end %>
+              <% else %>
+                <span class="text-gray-400">Current User</span>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="mt-4">
+  <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+</div>

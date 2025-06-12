@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1 style="color: #b91c1c;">Low Stock Alert</h1>
+    <p>
+      The product <strong><%= @product.name %></strong> is running low on stock.
+    </p>
+    <p>
+      Current stock: <span style="color: #b91c1c; font-weight: bold;"><%= @product.quantity %></span><br>
+      Low stock threshold: <%= @product.low_stock_threshold %>
+    </p>
+    <p>
+      Please consider restocking soon.
+    </p>
+    <p>
+      <a href="<%= products_url %>" style="background-color: #b91c1c; color: white; padding: 8px 16px; text-decoration: none; border-radius: 4px;">View Products</a>
+    </p>
+  </body>
+</html>

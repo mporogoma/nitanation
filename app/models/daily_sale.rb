@@ -1,5 +1,6 @@
 class DailySale < ApplicationRecord
   belongs_to :product
+  belongs_to :created_by, class_name: 'User', foreign_key: 'created_by_id'
 
   validates :date, :quantity_sold, :remaining_quantity, :total_profit, presence: true
   validates :quantity_sold, :remaining_quantity, numericality: { greater_than_or_equal_to: 0 }

@@ -5,7 +5,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
- rolify
+  rolify
+  has_many :daily_sales, foreign_key: 'created_by_id', dependent: :nullify
+  has_many :products, through: :daily_sales
+  has_many :created_daily_sales, class_name: 'DailySale', foreign_key: 'created_by_id', dependent: :nullify
 
   after_create :assign_default_role
 

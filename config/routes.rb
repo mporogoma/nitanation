@@ -12,4 +12,20 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  root to: 'home#index'
+
+  # Admin routes
+  #namespace :admin do
+    get 'admin/dashboard', to: 'admin#dashboard'
+    get 'users', to: 'admin#users'
+    patch 'update_user_role', to: 'admin#update_user_role'
+  #end
+
+  # Seller routes
+  get 'seller/dashboard', to: 'seller#dashboard'
+
+  # Resources
+  resources :categories
+  resources :products
+  resources :daily_sales
 end

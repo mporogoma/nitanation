@@ -5,9 +5,9 @@ class DailySalesController < ApplicationController
 
   def index
     if current_user.admin?
-      @pagy, @daily_sales = pagy(DailySale.all.includes(:product).order(date: :desc))
+      @pagy, @daily_sales = pagy(DailySale.all.includes(:product, :created_by).order(date: :desc))
     else
-      @pagy, @daily_sales = pagy(DailySale.where(created_by: current_user).includes(:product).order(date: :desc))
+      @pagy, @daily_sales = pagy(current_user.daily_sales.includes(:product).order(date: :desc))
     end
   end
 
@@ -22,7 +22,8 @@ class DailySalesController < ApplicationController
   end
 
   def create
-    @daily_sale = DailySale.new(daily_sale_params)
+   # @daily_sale = DailySale.new(daily_sale_params)
+    @daily_sale = DailySale.new(daily_sale_params.merge(created_by: current_user))
     @daily_sale.created_by = current_user
 
     if @daily_sale.save
@@ -42,7 +43,10 @@ class DailySalesController < ApplicationController
 
   def destroy
     @daily_sale.destroy
-    redirect_to daily_sales_url, notice: 'Daily sale was successfully destroyed.'
+    respond_to do |format|
+      format.html { redirect_to daily_sales_url, notice: 'Daily sale was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
 
   private

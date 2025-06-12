@@ -1,0 +1,35 @@
+<div class="flex justify-between items-center mb-8">
+  <h1 class="text-3xl font-bold text-red-800">Categories</h1>
+  <%= link_to 'New Category', new_category_path, class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" %>
+</div>
+
+<div class="bg-white shadow overflow-hidden sm:rounded-lg">
+  <div class="overflow-x-auto">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Products Count</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <% @categories.each do |category| %>
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><%= category.name %></td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= category.products.count %></td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              <%= link_to 'View', category, class: "text-red-600 hover:text-red-900 mr-3" %>
+              <%= link_to 'Edit', edit_category_path(category), class: "text-red-600 hover:text-red-900 mr-3" %>
+              <%= button_to 'Delete', category, method: :delete, data: { turbo_confirm: 'Are you sure?' }, class: "block text-red-600 hover:text-red-900" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="mt-4">
+  <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+</div>
