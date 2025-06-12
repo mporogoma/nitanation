@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  size: MyString
+  quantity: 1
+  purchase_price: 9.99
+  selling_price: 9.99
+  profit: 9.99
+  category: one
+  low_stock_threshold: 1
+
+two:
+  name: MyString
+  size: MyString
+  quantity: 1
+  purchase_price: 9.99
+  selling_price: 9.99
+  profit: 9.99
+  category: two
+  low_stock_threshold: 1

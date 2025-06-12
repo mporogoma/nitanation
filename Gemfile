@@ -63,3 +63,11 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "devise", "~> 4.9"
+gem "rolify", "~> 6.0"
+gem "view_component", "~> 3.23"
+gem "heroicons", "~> 2.1"
+gem "pagy", "~> 9.3"
+gem "sidekiq", "~> 8.0"
+gem "whenever", require: false
