@@ -5,6 +5,31 @@
   <% end %>
 </div>
 
+<div class="mb-6 bg-white p-4 rounded-lg shadow">
+  <h3 class="text-lg font-medium text-gray-900 mb-4">Search Products</h3>
+  <%= search_form_for @q, url: products_path, class: "space-y-4" do |f| %>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div>
+        <%= f.label :name_cont, "Product Name", class: "block text-sm font-medium text-gray-700" %>
+        <%= f.search_field :name_cont, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm", placeholder: "Contains..." %>
+      </div>
+      <div>
+        <%= f.label :category_name_cont, "Category", class: "block text-sm font-medium text-gray-700" %>
+        <%= f.search_field :category_name_cont, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm", placeholder: "Category name..." %>
+      </div>
+      <div>
+        <%= f.label :quantity_lteq, "Max Stock", class: "block text-sm font-medium text-gray-700" %>
+        <%= f.number_field :quantity_lteq, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm", placeholder: "Maximum quantity" %>
+      </div>
+    </div>
+    
+    <div class="flex justify-end space-x-3">
+      <%= link_to 'Reset', products_path, class: "inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" %>
+      <%= f.submit "Search", class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" %>
+    </div>
+  <% end %>
+</div>
+
 <div class="bg-white shadow overflow-hidden sm:rounded-lg">
   <div class="overflow-x-auto">
     <table class="min-w-full divide-y divide-gray-200">
@@ -35,11 +60,11 @@
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= number_to_currency(product.purchase_price) %></td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= number_to_currency(product.selling_price) %></td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= number_to_currency(product.profit) %></td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-              <%= link_to 'View', product, class: "text-red-600 hover:text-red-900 mr-3" %>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 block">
+              <%= link_to 'View', product, class: "inline-flex items-center px-1 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 mr-3" %>
               <% if current_user.admin? %>
-                <%= link_to 'Edit', edit_product_path(product), class: "text-red-600 hover:text-red-900 mr-3" %>
-                <%= link_to 'Delete', product, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-red-600 hover:text-red-900" %>
+                <%= link_to 'Edit', edit_product_path(product), class: "inline-flex items-center px-1 py-1 border border-transparent text-sm font-medium hover:cursor-pointer rounded-md shadow-sm text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 mr-3" %>
+                <%= button_to 'Delete', product, method: :delete, form: { class: "inline" }, data: { turbo_confirm: 'Are you sure?' }, class: "inline-flex items-center px-1 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 hover:cursor-pointer" %>
               <% end %>
             </td>
           </tr>

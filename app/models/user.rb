@@ -23,4 +23,14 @@ class User < ApplicationRecord
   def seller?
     has_role?(:seller)
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    # Only allow safe attributes to be searched
+    %w[email created_at updated_at]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    # Only allow safe associations to be searched
+    %w[]
+  end
 end

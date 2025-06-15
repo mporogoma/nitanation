@@ -3,7 +3,20 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
-    @pagy, @products = pagy(Product.all.includes(:category).order(created_at: :desc))
+    # @q = Product.ransack(params[:q])
+    # @pagy, @products = pagy(Product.all.includes(:category).order(created_at: :desc))
+
+    @q = Product.ransack(params[:q])
+    @q.sorts = 'name asc' if @q.sorts.empty?
+  
+    # For low stock filter
+    if params[:q] && params[:q][:low_stock_eq] == 'true'
+      @q.build_condition if @q.conditions.empty?
+      @q.conditions.first.predicate = 'lteq'
+      @q.conditions.first.values = [Product.arel_table[:quantity], Product.arel_table[:low_stock_threshold]]
+    end
+
+    @pagy, @products = pagy(@q.result.includes(:category).distinct)
   end
 
   def show

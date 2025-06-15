@@ -18,10 +18,10 @@
           <tr>
             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><%= category.name %></td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= category.products.count %></td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-              <%= link_to 'View', category, class: "text-red-600 hover:text-red-900 mr-3" %>
-              <%= link_to 'Edit', edit_category_path(category), class: "text-red-600 hover:text-red-900 mr-3" %>
-              <%= button_to 'Delete', category, method: :delete, data: { turbo_confirm: 'Are you sure?' }, class: "block text-red-600 hover:text-red-900" %>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 block">
+              <%= link_to 'View', category, class: "inline-flex items-center px-1 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 mr-3" %>
+              <%= link_to 'Edit', edit_category_path(category), class: "inline-flex items-center px-1 py-1 border border-transparent text-sm font-medium hover:cursor-pointer rounded-md shadow-sm text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 mr-3" %>
+              <%= button_to 'Delete', category, method: :delete, form: { class: "inline" }, data: { turbo_confirm: 'Are you sure?' }, class: "inline-flex items-center px-1 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 hover:cursor-pointer" %>
             </td>
           </tr>
         <% end %>

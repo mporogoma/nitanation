@@ -24,7 +24,7 @@ class AdminController < ApplicationController
       user.remove_role(:admin)
       user.add_role(:seller)
     end
-    redirect_to admin_users_path, notice: "User role updated successfully."
+    redirect_to users_path, notice: "User role updated successfully."
   end
 
   private

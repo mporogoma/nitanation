@@ -71,3 +71,5 @@ gem "heroicons", "~> 2.1"
 gem "pagy", "~> 9.3"
 gem "sidekiq", "~> 8.0"
 gem "whenever", require: false
+
+gem "ransack", "~> 4.3"

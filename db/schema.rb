@@ -28,11 +28,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_12_154558) do
     t.decimal "total_profit"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
     t.bigint "created_by_id"
     t.index ["created_by_id"], name: "index_daily_sales_on_created_by_id"
     t.index ["product_id"], name: "index_daily_sales_on_product_id"
-    t.index ["user_id"], name: "index_daily_sales_on_user_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -80,7 +78,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_12_154558) do
   end
 
   add_foreign_key "daily_sales", "products"
-  add_foreign_key "daily_sales", "users"
   add_foreign_key "daily_sales", "users", column: "created_by_id"
   add_foreign_key "products", "categories"
 end

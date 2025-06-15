@@ -1,1 +1,39 @@
 @import "tailwindcss";
+
+@theme {
+  --color-red-800: #991b1b;
+  --color-red-900: #7f1d1d;
+  --color-gold-300: #fcd34d;
+  --color-gold-400: #fbbf24;
+  --color-gold-500: #f59e0b;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+      
+}
+
+/* Flash message base styles */
+.flash-message {
+  @apply p-4 mb-4 rounded relative overflow-hidden;
+  transition: opacity 300ms ease-out;
+}
+
+/* Progress bar animation */
+.flash-progress {
+  @apply w-full;
+  transition-property: width;
+}
+
+/* Specific flash types */
+.flash-notice {
+  @apply bg-green-100 border border-green-400 text-green-700;
+}
+
+.flash-alert {
+  @apply bg-red-100 border border-red-400 text-red-700;
+}
+
+.flash-warning {
+  @apply bg-yellow-100 border border-yellow-400 text-yellow-700;
+}

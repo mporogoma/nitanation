@@ -9,6 +9,19 @@ class DailySale < ApplicationRecord
   before_validation :set_date, :calculate_totals
   after_create :update_product_quantity
 
+  def self.ransackable_attributes(auth_object = nil)
+    %w[quantity_sold remaining_quantity total_profit date created_at updated_at]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    %w[product created_by]
+  end
+
+  # For searching product name through the association
+  ransacker :product_name, formatter: proc { |v| v.downcase } do |parent|
+    Arel::Nodes::NamedFunction.new('LOWER', [Product.arel_table[:name]])
+  end
+
   private
 
   def set_date

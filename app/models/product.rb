@@ -11,6 +11,21 @@ class Product < ApplicationRecord
 
   scope :low_stock, -> { where('quantity <= low_stock_threshold') }
 
+  def self.ransackable_attributes(auth_object = nil)
+    # Allowlist only these attributes to be searchable
+    %w[name size quantity purchase_price selling_price profit created_at updated_at]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    # Allowlist associations that can be searched
+    %w[category]
+  end
+
+  # For searching category name through the association
+  ransacker :category_name, formatter: proc { |v| v.downcase } do |parent|
+    Arel::Nodes::NamedFunction.new('LOWER', [parent.table[:name]])
+  end
+
   def calculate_profit
     self.profit = selling_price - purchase_price
   end

@@ -4,10 +4,23 @@ class DailySalesController < ApplicationController
   before_action :set_products, only: [:new, :edit, :create, :update]
 
   def index
-    if current_user.admin?
-      @pagy, @daily_sales = pagy(DailySale.all.includes(:product, :created_by).order(date: :desc))
-    else
-      @pagy, @daily_sales = pagy(current_user.daily_sales.includes(:product).order(date: :desc))
+    @q = DailySale.ransack(params[:q])
+    @q.sorts = 'date desc' if @q.sorts.empty?
+    # if current_user.admin?
+    #   @pagy, @daily_sales = pagy(DailySale.all.includes(:product, :created_by).order(date: :desc))
+    # else
+    #   @pagy, @daily_sales = pagy(current_user.daily_sales.includes(:product).order(date: :desc))
+    # end
+
+    # if params[:q] && params[:q][:date_gteq].present? && params[:q][:date_lteq].present?
+    #   @date_range = "#{params[:q][:date_gteq]} to #{params[:q][:date_lteq]}"
+    # end
+   
+    
+    @pagy, @daily_sales = pagy(@q.result.includes(:product, :created_by).distinct)
+    
+    if params[:q] && params[:q][:date_gteq].present? && params[:q][:date_lteq].present?
+      @date_range = "#{params[:q][:date_gteq].to_date.strftime('%b %d, %Y')} to #{params[:q][:date_lteq].to_date.strftime('%b %d, %Y')}"
     end
   end
 
