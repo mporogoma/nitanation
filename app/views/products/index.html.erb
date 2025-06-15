@@ -57,9 +57,9 @@
                 <span class="ml-1 text-xs text-red-500">(Low Stock)</span>
               <% end %>
             </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= number_to_currency(product.purchase_price) %></td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= number_to_currency(product.selling_price) %></td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= number_to_currency(product.profit) %></td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= number_to_currency(product.purchase_price, :unit => "Tshs. ", :delimiter => "," ) %></td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= number_to_currency(product.selling_price, :unit => "Tshs. ", :delimiter => ",") %></td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= number_to_currency(product.profit, :unit => "Tshs. ", :delimiter => ",") %></td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 block">
               <%= link_to 'View', product, class: "inline-flex items-center px-1 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 mr-3" %>
               <% if current_user.admin? %>

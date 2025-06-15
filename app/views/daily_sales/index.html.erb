@@ -47,7 +47,7 @@
             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><%= daily_sale.product.name %></td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= daily_sale.quantity_sold %></td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= daily_sale.remaining_quantity %></td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= number_to_currency(daily_sale.total_profit) %></td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= number_to_currency(daily_sale.total_profit, :unit => "Tshs. ", :delimiter => ",") %></td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
               <%= link_to 'View', daily_sale, class: "inline-flex items-center px-1 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 mr-3" %>
               <%= link_to 'Edit', edit_daily_sale_path(daily_sale), class: "inline-flex items-center px-1 py-1 border border-transparent text-sm font-medium hover:cursor-pointer rounded-md shadow-sm text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 mr-3" %>
